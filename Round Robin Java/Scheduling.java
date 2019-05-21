@@ -2,17 +2,95 @@
   
 public class Scheduling	extends Thread
 { 
+	static void priority(int pr[], int process[], int n)
+	{
+		Frame pri = new Frame();
+		pri.setVisible(true) ;
+		pri.pack() ;
+		pri.setSize(300,300) ;
+		pri.setResizable(false);
+		pri.setLocationRelativeTo(null) ;
+		pri.setDefaultCloseOperation(pri.EXIT_ON_CLOSE) ;
+		
+		while(true) 
+        { 
+            boolean done = true; 
+       
+            // Traverse all processes one by one repeatedly 
+            for (int i = 0 ; i < n; i++) 
+            { 
+                if(pr[i] == 1)
+				{
+					if(process[i] == 1)
+					{
+						pri.incProgressA();
+					}
+					if(process[i] == 2)
+					{
+						pri.incProgressB() ;
+					}
+					if(process[i] == 3)
+					{
+						pri.incProgressC() ;
+					}
+				}
+				if(pr[i] == 2)
+				{
+					if(process[i] == 1)
+					{
+						pri.incProgressA();
+					}
+					if(process[i] == 2)
+					{
+						pri.incProgressB() ;
+					}
+					if(process[i] == 3)
+					{
+						pri.incProgressC() ;
+					}
+				}
+				if(pr[i] == 3)
+				{
+					if(process[i] == 1)
+					{
+						pri.incProgressA();
+					}
+					if(process[i] == 2)
+					{
+						pri.incProgressB() ;
+					}
+					if(process[i] == 3)
+					{
+						pri.incProgressC() ;
+					}
+				}
+				try
+				{
+					Thread.sleep(1000) ;
+				}
+				catch (InterruptedException e)
+				{
+					System.out.println("Fault") ;
+				}
+            } 
+            // If all processes are done 
+            if (done == true) 
+			{
+              break; 
+			}
+        }
+	}
+	
     // Method to find the wait time for all processes 
     static void waitTime(int processes[], int n, int bt[], int wt[], int quantum) 
     {
 		Frame frm = new Frame();
 		frm.setVisible(true) ;
 		frm.pack() ;
-		frm.setSize(300,200) ;
+		frm.setSize(300,300) ;
 		frm.setResizable(false);
 		frm.setLocationRelativeTo(null) ;
 		frm.setDefaultCloseOperation(frm.EXIT_ON_CLOSE) ;
-		frm.timer() ;
 		
         // Create remaining burst times 
         int rem_bt[] = new int[n]; 
@@ -51,20 +129,19 @@ public class Scheduling	extends Thread
 						catch (InterruptedException e)
 						{
 							System.out.println("Fault") ;
-							
 						}
 						
 						if(processes[i] == 1)
 						{
-							frm.incProcess();
+							frm.incProgressA();
 						}
 						if(processes[i] == 2)
 						{
-							
+							frm.incProgressB() ;
 						}
 						if(processes[i] == 3)
 						{
-							
+							frm.incProgressC() ;
 						}
 						
 						
@@ -136,11 +213,15 @@ public class Scheduling	extends Thread
         int n = processes.length; 
        
         // Burst time of all processes 
-        int burst_time[] = {10, 5, 8}; 
+        int burst_time[] = {10, 5, 8};
+		int priority[] = {2,3,1} ;
 
         // Time quantum 
         int quantum = 3 ; 
         avgTime(processes, n, burst_time, quantum) ; 
+		priority(priority,processes,n);
+		
+		
 		
     } 
 } 
